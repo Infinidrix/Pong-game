@@ -13,7 +13,9 @@ export class Ball{
             this.dx = -this.dx;
         } 
         if(this.x > canvas.clientWidth-this.radius-playerPaddle.width){
-            if (this.y + this.radius / 2  > playerPaddle.y && this.y + this.radius / 2 < playerPaddle.y + playerPaddle.height) {
+            if (this.y + this.radius / 2  > playerPaddle.y && 
+                this.y + this.radius / 2 < playerPaddle.y + playerPaddle.height &&
+                this.dx > 0) {
                 console.log(`Dx currently ${this.dx} and x+dx ${this.x+this.dx} and comp ${canvas.clientWidth-this.radius-playerPaddle.width}`)
                 this.dx = -this.dx;
                 this.dx *= 1.05;

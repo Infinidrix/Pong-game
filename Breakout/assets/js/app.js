@@ -1,6 +1,7 @@
 import { Ball } from "./ball.js"
 import { Enemy } from "./enemy.js"
 import { Player } from "./player.js"
+import { addScore } from "./db.js";
 /*
     TODO:
         Move stuff to modules and import them es6 style
@@ -72,8 +73,9 @@ function draw() {
     drawBall();
     ball.moveBall(enemyPaddle, playerPaddle, gameState, () =>
         setTimeout(() => {
-            alert("GAME OVER");
             clearInterval(interval); // Needed for Chrome to end game
+            alert("GAME OVER");
+            addScore("player", gameState.score);
         }, 5)
     );
     playerPaddle.move(canvas, gameState.upPressed, gameState.downPressed);
