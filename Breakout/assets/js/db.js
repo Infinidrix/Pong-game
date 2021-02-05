@@ -20,14 +20,21 @@ export function addScore(username, score){
 
     request.onerror = console.warn;
     transaction.onerror = console.warn;
-    return displayScores;
+    return retrieveScores;
 }
 
-function* displayScores(){
+function retrieveScores(displayScores){
     let transaction = db.transaction(["leaderboard"]);
+    transaction.onerror = console.warn;
     let objectStore = transaction.objectStore('leaderboard');
-
-    objectStore.index("score").openCursor(null, "next").onsuccess = (e) => {
-        console.log(e);
-    }
+    let results = [];
+    objectStore.index("score").openCursor(null, "prev").onsuccess = (e) => {
+        let cursor = e.target.result;
+        if (cursor){
+            results.push(cursor.value);
+            cursor.continue();
+        } else {
+            displayScores(results)
+        }
+    };
 } 

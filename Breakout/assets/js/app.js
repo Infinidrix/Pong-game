@@ -75,7 +75,7 @@ function draw() {
         setTimeout(() => {
             clearInterval(interval); // Needed for Chrome to end game
             alert("GAME OVER");
-            addScore("player", gameState.score);
+            let leaderboards = addScore("player", gameState.score)(showScores);
         }, 5)
     );
     playerPaddle.move(canvas, gameState.upPressed, gameState.downPressed);
@@ -84,4 +84,24 @@ function draw() {
     drawPaddle(enemyPaddle);
     drawScore();
 }
+
+function showScores(scores){
+    let iter = returnScores(scores);
+    let score = iter.next();;
+    while (!score.done) {
+        console.log(score.value);
+        score = iter.next() 
+    } 
+}
+
+function* returnScores(scores){
+    for(let i = 0; i < scores.length; i++){
+        yield formatScores`${i}|${scores[i].username}|${scores[i].score}`;
+    }
+}
+
+function formatScores(initString, rank, username, score){
+    return [rank, username, score]
+}
+
 var interval = setInterval(draw, 10);
