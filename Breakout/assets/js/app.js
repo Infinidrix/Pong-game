@@ -15,10 +15,10 @@ let canvas = document.querySelector("#myCanvas");
 let ctx = canvas.getContext("2d");
 ctx.font = "30px sans-serif"
 
-let ball = new Ball(canvas.clientWidth/2, canvas.clientHeight - 20, 2.2, 2.2, 10);
-let playerPaddle = new Player(75, 10, 3, canvas.clientWidth, canvas.clientHeight)
+let ball = new Ball(canvas.clientWidth/2, canvas.clientHeight - 20, -2.2, 2.2, 10);
+let playerPaddle = new Player(75, 10, 3, 0, (canvas.clientHeight-75) / 2)
 
-let enemyPaddle = new Enemy(75, 10, 0, (canvas.clientHeight-75) / 2);
+let enemyPaddle = new Enemy(75, 10, canvas.clientWidth - 10, (canvas.clientHeight-75) / 2);
 
 
 let gameState = {

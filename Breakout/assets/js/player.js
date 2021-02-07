@@ -3,8 +3,8 @@ export class Player{
         this.height = height;
         this.width = width 
         this.speed = speed;
-        this.x = screenWidth - 10;
-        this.y = (screenHeight-75) / 2;
+        this.x = screenWidth;
+        this.y = screenHeight;
     }
     move(canvas, upPressed, downPressed){
         if(downPressed) {
