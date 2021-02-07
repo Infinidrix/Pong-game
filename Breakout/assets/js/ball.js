@@ -9,9 +9,11 @@ export class Ball{
     }
     moveBall(enemyPaddle, playerPaddle, state, endGame){
         let { canvas } = state;
+        // center coordinates for the ball
+        let cy = this.y + this.radius/2;
         if (this.x + this.dx - this.radius - playerPaddle.width < 0){
-            if (this.y + this.radius / 2  > playerPaddle.y && 
-                this.y + this.radius / 2 < playerPaddle.y + playerPaddle.height &&
+            if (cy + this.radius / 2  > playerPaddle.y && 
+                cy + this.radius / 2 < playerPaddle.y + playerPaddle.height &&
                 this.dx < 0) {
                 console.log(`Dx currently ${this.dx} and x+dx ${this.x+this.dx} and comp ${canvas.clientWidth-this.radius-playerPaddle.width}`)
                 this.dx = -this.dx;

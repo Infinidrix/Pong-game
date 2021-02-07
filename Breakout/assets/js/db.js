@@ -1,3 +1,5 @@
+import { showScores  } from "./app.js";
+
 let db;
 let request = indexedDB.open("scores", 1);
 request.onupgradeneeded = ((ev) => {
@@ -8,11 +10,15 @@ request.onupgradeneeded = ((ev) => {
     // index by score
     objStore.createIndex("score", "score", { unique: false });
 });
-request.onsuccess = (ev => db = request.result)
+request.onsuccess = (ev => {
+    db = request.result;
+    retrieveScores(showScores);
+})
 
 request.onerror = console.warn;
 
 export function addScore(username, score){
+    console.log("Adding " + username);
     let transaction = db.transaction(["leaderboard"], "readwrite");
     let objectStore = transaction.objectStore('leaderboard');
 
@@ -23,7 +29,7 @@ export function addScore(username, score){
     return retrieveScores;
 }
 
-function retrieveScores(displayScores){
+export function retrieveScores(displayScores){
     let transaction = db.transaction(["leaderboard"]);
     transaction.onerror = console.warn;
     let objectStore = transaction.objectStore('leaderboard');
