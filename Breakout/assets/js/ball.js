@@ -1,5 +1,5 @@
 
-export class Ball{
+export default class Ball{
     constructor(x, y, dx, dy, radius){
         this.x = x;
         this.y = y;

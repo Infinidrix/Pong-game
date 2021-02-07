@@ -1,6 +1,6 @@
-import { Ball } from "./ball.js"
-import { Enemy } from "./enemy.js"
-import { Player } from "./player.js"
+import Ball from "./ball.js"
+import Enemy from "./enemy.js"
+import Player from "./player.js"
 import { addScore, mostFrequentPlayers } from "./db.js";
 /*
     TODO:

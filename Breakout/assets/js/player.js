@@ -1,4 +1,4 @@
-export class Player{
+export default class Player{
     constructor(height, width, speed, screenWidth, screenHeight){
         this.height = height;
         this.width = width 
