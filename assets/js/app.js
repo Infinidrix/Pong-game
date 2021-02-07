@@ -48,7 +48,7 @@ let ctx = canvas.getContext("2d");
 
 
 startGameState();
-drawInit();
+drawInit("Pong Game");
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
@@ -70,11 +70,11 @@ function keyUpHandler(e) {
     }
 }
 
-function drawInit(){
+function drawInit(text){
     ctx.fillStyle = "white";
     ctx.font = "50px roboto";
     // Reflect function and prototype
-    Reflect.apply(Reflect.getPrototypeOf(ctx).fillText, ctx, ["Pong", canvas.clientWidth / 2 - 25, canvas.clientHeight / 2 - 25])
+    Reflect.apply(Reflect.getPrototypeOf(ctx).fillText, ctx, [text, canvas.clientWidth / 2 - 100, canvas.clientHeight / 2 - 25])
 }
 
 function drawScore(){
@@ -105,6 +105,7 @@ function draw() {
         setTimeout(() => {
             clearInterval(interval); // Needed for Chrome to end game
             interval = undefined; 
+            drawInit("Game Over!")
             console.log(`Player is ${playerName}`)
             addScore(playerName || "player", gameState.score)((res) => showScores("#scorelist", res));
             mostFrequentPlayers((res) => showScores("#playerlist", res))
