@@ -18,6 +18,7 @@ request.onsuccess = (ev => {
 
 request.onerror = console.warn;
 
+// Return functions
 export function addScore(username, score){
     console.log("Adding " + username);
     let transaction = db.transaction(["leaderboard"], "readwrite");
@@ -30,7 +31,8 @@ export function addScore(username, score){
     return retrieveScores;
 }
 
-export function retrieveScores(displayScores){
+// Accept functions
+function retrieveScores(displayScores){
     let transaction = db.transaction(["leaderboard"]);
     transaction.onerror = console.warn;
     let objectStore = transaction.objectStore('leaderboard');
@@ -46,6 +48,7 @@ export function retrieveScores(displayScores){
     };
 } 
 
+// Sets and maps
 export function mostFrequentPlayers(displayScores){
     let objectStore = db.transaction("leaderboard").objectStore("leaderboard");
     objectStore.onerror = console.warn;

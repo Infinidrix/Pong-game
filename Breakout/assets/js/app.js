@@ -26,6 +26,7 @@ document.querySelector("#btn-reset").addEventListener("click", ()=>{
 })
 
 function startGameState(){
+    // Reflect construct and property get
     ball = Reflect.construct(Ball, [Reflect.get(canvas, "clientWidth")/2, canvas.clientHeight - 20, -2.2, 2.2, 10])
     // ball = new Ball(canvas.clientWidth/2, canvas.clientHeight - 20, -2.2, 2.2, 10);
     playerPaddle = new Player(75, 10, 3, 0, (canvas.clientHeight-75) / 2)
@@ -72,6 +73,7 @@ function keyUpHandler(e) {
 function drawInit(){
     ctx.fillStyle = "white";
     ctx.font = "50px roboto";
+    // Reflect function and prototype
     Reflect.apply(Reflect.getPrototypeOf(ctx).fillText, ctx, ["Pong", canvas.clientWidth / 2 - 25, canvas.clientHeight / 2 - 25])
 }
 
@@ -97,11 +99,12 @@ function drawPaddle(paddle) {
 function draw() {
     ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
     drawBall();
+    // Closures
+    let playerName = document.querySelector("#input-name").value;
     ball.moveBall(enemyPaddle, playerPaddle, gameState, () =>
         setTimeout(() => {
             clearInterval(interval); // Needed for Chrome to end game
             interval = undefined; 
-            let playerName = document.querySelector("#input-name").value;
             console.log(`Player is ${playerName}`)
             addScore(playerName || "player", gameState.score)((res) => showScores("#scorelist", res));
             mostFrequentPlayers((res) => showScores("#playerlist", res))
@@ -132,8 +135,10 @@ export function showScores(nodeName, scores){
     } 
 }
 
+// Generator
 function* returnScores(scores){
     for(let i = 0; i < scores.length; i++){
+        // Tagged templates
         if (!Array.isArray(scores[i])){
             yield formatScores`${i}|${scores[i].username}|${scores[i].score}`;
         }

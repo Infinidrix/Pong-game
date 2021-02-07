@@ -1,3 +1,4 @@
+// export default
 export default class Player{
     constructor(height, width, speed, screenWidth, screenHeight){
         this.height = height;
