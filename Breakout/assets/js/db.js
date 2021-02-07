@@ -12,7 +12,8 @@ request.onupgradeneeded = ((ev) => {
 });
 request.onsuccess = (ev => {
     db = request.result;
-    retrieveScores(showScores);
+    retrieveScores((res) => showScores("#scorelist", res));
+    mostFrequentPlayers((res) => showScores("#playerlist", res))
 })
 
 request.onerror = console.warn;
@@ -44,3 +45,24 @@ export function retrieveScores(displayScores){
         }
     };
 } 
+
+export function mostFrequentPlayers(displayScores){
+    let objectStore = db.transaction("leaderboard").objectStore("leaderboard");
+    objectStore.onerror = console.warn;
+    let players = new Set();
+    let games = new Map();
+    objectStore.openCursor().onsuccess = (e) => {
+        let cursor = e.target.result;
+        if (cursor){
+            let name = cursor.value.username;
+            if (!players.has(name)){
+                games.set(name, 0);
+                players.add(name);
+            }
+            games.set(name, games.get(name) + 1);
+            cursor.continue();
+        } else {
+            displayScores([...games.entries()].sort((a, b) => b[1] - a[1]));
+        }
+    };
+}
