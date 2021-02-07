@@ -2,22 +2,15 @@ import Ball from "./ball.js"
 import Enemy from "./enemy.js"
 import Player from "./player.js"
 import { addScore, mostFrequentPlayers } from "./db.js";
-/*
-    TODO:
-        Move stuff to modules and import them es6 style
-        draw some styling on the for the canvas
-        Improve the end game screen
-        ✓ increasing difficulty with time
-        ✓ implement scores
-        implement leaderboard
-*/
 
+// play button 
 document.querySelector("#btn-play").addEventListener("click", ()=>{
     if (!interval){
         interval = setInterval(draw, 10);
     }
 })
 
+// pause button
 document.querySelector("#btn-pause").addEventListener("click", ()=>{
     if (interval){
         clearInterval(interval);
@@ -106,9 +99,8 @@ function draw() {
     drawBall();
     ball.moveBall(enemyPaddle, playerPaddle, gameState, () =>
         setTimeout(() => {
-            clearInterval(interval);
-            interval = undefined; // Needed for Chrome to end game
-            alert("GAME OVER");
+            clearInterval(interval); // Needed for Chrome to end game
+            interval = undefined; 
             let playerName = document.querySelector("#input-name").value;
             console.log(`Player is ${playerName}`)
             addScore(playerName || "player", gameState.score)((res) => showScores("#scorelist", res));
